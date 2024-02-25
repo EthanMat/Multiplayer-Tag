@@ -1,3 +1,4 @@
+import os
 import pygame
 
 width = 1200
@@ -5,20 +6,21 @@ height = 700
 win = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Client")
 
-clientNumber = 0
+clientNumber = 1
 
 class Player():
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.color = color
         self.rect = (x, y, width, height)
+        self.PLAYER_IMAGE = pygame.image.load("Assets/Player" + str (clientNumber) + "/main.png")
+        self.image = pygame.transform.scale(self.PLAYER_IMAGE, (self.width, self.height))
         self.vel = 3
 
     def draw(self, win):
-        pygame.draw.rect(win, self.color, self.rect)
+        win.blit(self.image, self.rect)
 
     def move(self):
         keys = pygame.key.get_pressed()
@@ -44,7 +46,7 @@ def redrawWindow(win, player):
 
 def main():
     run = True
-    p = Player(50, 50, 100, 100, (0, 255, 0))
+    p = Player(50, 50, 100, 100)
     clock = pygame.time.Clock()
 
     while run:
