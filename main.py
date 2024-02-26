@@ -3,7 +3,7 @@ import pygame
 
 width = 1200
 height = 700
-win = pygame.display.set_mode((width, height))
+WIN = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Client")
 
 clientNumber = 1
@@ -19,18 +19,18 @@ class Player():
         self.image = pygame.transform.scale(self.PLAYER_IMAGE, (self.width, self.height))
         self.vel = 3
 
-    def draw(self, win):
-        win.blit(self.image, self.rect)
+    def draw(self, WIN):
+        WIN.blit(self.image, self.rect)
         print(self.x)
         print(self.y)
 
     def move(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] and self.x > 0:
             self.x -= self.vel
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and self.x < width - self.width:
             self.x += self.vel
 
         if keys[pygame.K_UP] and self.y > 0:
@@ -41,9 +41,9 @@ class Player():
 
         self.rect = (self.x, self.y, self.width, self.height)
 
-def redrawWindow(win, player):
-    win.fill((255, 255, 255))
-    player.draw(win)
+def redrawWINdow(WIN, player):
+    WIN.fill((255, 255, 255))
+    player.draw(WIN)
     pygame.display.update()
 
 def main():
@@ -58,6 +58,6 @@ def main():
                 run = False
                 pygame.quit()
         p.move()
-        redrawWindow(win, p)
+        redrawWINdow(WIN, p)
 
 main()
