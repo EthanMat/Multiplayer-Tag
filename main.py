@@ -21,6 +21,8 @@ class Player():
 
     def draw(self, win):
         win.blit(self.image, self.rect)
+        print(self.x)
+        print(self.y)
 
     def move(self):
         keys = pygame.key.get_pressed()
@@ -31,10 +33,10 @@ class Player():
         if keys[pygame.K_RIGHT]:
             self.x += self.vel
 
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] and self.y > 0:
             self.y -= self.vel
 
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] and self.y < height - self.height:
             self.y += self.vel
 
         self.rect = (self.x, self.y, self.width, self.height)
@@ -46,7 +48,7 @@ def redrawWindow(win, player):
 
 def main():
     run = True
-    p = Player(50, 50, 100, 100)
+    p = Player(50, 50, 50, 50)
     clock = pygame.time.Clock()
 
     while run:
