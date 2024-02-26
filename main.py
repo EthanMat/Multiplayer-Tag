@@ -12,6 +12,7 @@ class Player():
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
+        self.vel_y = 0
         self.width = width
         self.height = height
         self.rect = (x, y, width, height)
@@ -27,17 +28,32 @@ class Player():
     def move(self):
         keys = pygame.key.get_pressed()
 
+        dx = 0
+        dy = 0
+
         if keys[pygame.K_LEFT] and self.x > 0:
-            self.x -= self.vel
+            dx -= self.vel
 
         if keys[pygame.K_RIGHT] and self.x < width - self.width:
-            self.x += self.vel
+            dx += self.vel
 
         if keys[pygame.K_UP] and self.y > 0:
-            self.y -= self.vel
+            dy -= self.vel
 
         if keys[pygame.K_DOWN] and self.y < height - self.height:
-            self.y += self.vel
+            dy += self.vel
+
+        #add gravity
+        self.vel_y += 1
+        if self.vel_y > 10:
+            self.vel_y = 10
+        dy += self.vel_y
+
+        if self.y > height - self.height:
+            dy = 0
+
+        self.x += dx
+        self.y += dy
 
         self.rect = (self.x, self.y, self.width, self.height)
 
